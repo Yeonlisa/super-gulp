@@ -4,6 +4,8 @@ import del from "del";
 import ws from "gulp-webserver";
 import image from "gulp-image";
 const sass = require('gulp-sass')(require('sass'));
+import autoprefixer from "gulp-autoprefixer";
+import miniCSS from "gulp-csso";
 
 sass.compiler = require("node-sass");
 
@@ -44,6 +46,10 @@ const styles = () =>
     gulp
         .src(routes.scss.src)
         .pipe(sass().on("error", sass.logError))
+        .pipe(
+            autoprefixer()
+        )
+        .pipe(miniCSS())
         .pipe(gulp.dest(routes.scss.dest));
 
 const watch = () => {
